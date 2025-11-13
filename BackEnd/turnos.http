@@ -1,0 +1,48 @@
+@url = http://localhost:3000
+
+### Login
+# @name login
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "aaaa@gmail.com",
+  "password": "Test1234"
+}
+
+###
+@token = {{login.response.body.token}}
+
+### lista de turnos
+GET {{url}}/turnos
+Authorization: Bearer {{token}}
+
+### obtener turno por ID
+GET {{url}}/turnos/1
+Authorization: Bearer {{token}}
+
+### crear turno
+POST {{url}}/turnos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "paciente_id": 1,
+  "medico_id": 1,
+  "fecha": "2025-12-15",
+  "hora": "09:30"
+}
+
+### cambiar estado del turno
+PUT {{url}}/turnos/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "estado": "atendido",
+  "observaciones": "Paciente en buen estado de salud"
+}
+
+### eliminar turno
+DELETE {{url}}/turnos/1
+Authorization: Bearer {{token}}

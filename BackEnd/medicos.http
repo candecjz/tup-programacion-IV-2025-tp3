@@ -1,0 +1,50 @@
+@url = http://localhost:3000
+
+### Login
+# @name login
+POST {{url}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "aaaa@gmail.com",
+  "password": "Test1234"
+}
+
+###
+@token = {{login.response.body.token}}
+
+### lista de médicos
+GET {{url}}/medicos
+Authorization: Bearer {{token}}
+
+### obtener médico por ID
+GET {{url}}/medicos/1
+Authorization: Bearer {{token}}
+
+### crear médico
+POST {{url}}/medicos
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Pedro",
+  "apellido": "Martínez",
+  "especialidad": "Cardiología",
+  "matricula": "MP123456"
+}
+
+### modificar médico
+PUT {{url}}/medicos/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "nombre": "Pedro",
+  "apellido": "Ramírez",
+  "especialidad": "Neurología",
+  "matricula": "MP123456"
+}
+
+### eliminar médico
+DELETE {{url}}/medicos/1
+Authorization: Bearer {{token}}
